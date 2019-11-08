@@ -30,7 +30,9 @@ class TeamsController < ApplicationController
   end
 
   def update
-    if @team.update(team_params)
+    current_user == assign.team.owner  
+
+    if @team.update(team_params) && current_user == assign.team.owner
       redirect_to @team, notice: 'チーム更新に成功しました！'
     else
       flash.now[:error] = '保存に失敗しました、、'
@@ -39,8 +41,10 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @team.destroy
-    redirect_to teams_url, notice: 'チーム削除に成功しました！'
+      @team.destroy
+      redirect_to teams_url, notice: 'チーム削除に成功しました！'
+    end
+
   end
 
   def dashboard
@@ -56,4 +60,3 @@ class TeamsController < ApplicationController
   def team_params
     params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
   end
-end
