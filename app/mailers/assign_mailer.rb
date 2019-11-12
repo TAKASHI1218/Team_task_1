@@ -7,4 +7,3 @@ class AssignMailer < ApplicationMailer
     mail to: @email, subject: '登録完了'
   end
 end
- 

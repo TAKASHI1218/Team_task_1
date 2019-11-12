@@ -22,8 +22,15 @@ class AgendasController < ApplicationController
   end
 
    def destroy
+
      @agenda.destroy
-     AgendaMailer.delete_notice(@agenda).deliver
+     @assigns = @agenda.team.assigns
+     @assigns.each do |assign|
+       AgendaMailer.agenda_mail(@agenda, assign.user.email).deliver
+     end
+
+
+
      redirect_to dashboard_url
    end
 
