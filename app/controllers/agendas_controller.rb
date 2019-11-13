@@ -1,5 +1,5 @@
 class AgendasController < ApplicationController
-  # before_action :set_agenda, only: %i[show edit update destroy]
+  before_action :set_agenda, only: %i[show edit update destroy]
 
   def index
     @agendas = Agenda.all
@@ -20,6 +20,20 @@ class AgendasController < ApplicationController
       render :new
     end
   end
+
+   def destroy
+
+     @agenda.destroy
+     @assigns = @agenda.team.assigns
+     @assigns.each do |assign|
+       AgendaMailer.agenda_mail(@agenda, assign.user.email).deliver
+     end
+
+
+
+     redirect_to dashboard_url
+   end
+
 
   private
 

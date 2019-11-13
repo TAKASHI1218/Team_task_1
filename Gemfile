@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
-
+gem 'pry-rails'
+gem 'better_errors'
+gem 'binding_of_caller'
 # Core
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rails', '~> 5.2.0'
